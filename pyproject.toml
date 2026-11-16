@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pick_and_place_ur3"
+version = "0.0.1"
+authors = [
+    {name="Tijn Klein Gunnewiek", email="583577@student.saxion.nl"},
+]
+description = "Pick & Place vision system for the UR3 robot, it uses MobileNetV2, opencv and sklearn to classify and sort objects before sorting them in the corresponding bin using the UR3."
+requires-python = ">=3.10, <=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C++",
+    "Operating System :: POSIX",
+]
+license = "GPL-3.0-only"
+license-files = ["LICEN[CS]E*"]
+
+[project.scripts]
+client = "pick_and_place_ur3.client:main"
+
+[project.urls]
+Homepage = "https://github.com"

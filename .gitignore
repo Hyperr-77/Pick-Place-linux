@@ -1,0 +1,4 @@
+/.vscode
+__pycache__/
+*.py[cod]
+pick_and_place_ur3.egg-info/
