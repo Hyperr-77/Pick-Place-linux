@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0.0"]
+requires = ["setuptools>=77.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -10,6 +10,7 @@ authors = [
 ]
 description = "Pick & Place vision system for the UR3 robot, it uses MobileNetV2, opencv and sklearn to classify and sort objects before sorting them in the corresponding bin using the UR3."
 requires-python = ">=3.10, <=3.12"
+
 classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -25,7 +26,7 @@ dependencies = [
     "PySide6>=6.12.0",
 ]
 
-license = "PolyForm Noncommercial License 1.0.0"
+license = "LicenseRef-PolyForm-Noncommercial-1.0.0"
 license-files = ["LICEN[CS]E*"]
 
 [project.scripts]
