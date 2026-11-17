@@ -17,7 +17,15 @@ classifiers = [
     "Programming Language :: C++",
     "Operating System :: POSIX",
 ]
-license = "GPL-3.0-only"
+
+dependencies = [
+    "tflite-runtime>=2.14.0",
+    "opencv-python>=5.0.0.93",
+    "scikit-learn>=1.9.1",
+    "PySide6>=6.12.0",
+]
+
+license = "PolyForm Noncommercial License 1.0.0"
 license-files = ["LICEN[CS]E*"]
 
 [project.scripts]
