@@ -1,13 +1,7 @@
 import numpy as np
 from tflite_runtime.interpreter import Interpreter
 
-interpreter = Interpreter(
-    model_path="mobilenet_v2.tflite",
-    num_threads=4,
-)
-interpreter.allocate_tensors()
-
-def transform_batch(objects: list) -> list:
+def transform_batch(objects: list, model: Interpreter) -> list:
     if not objects:
         return []
 
@@ -18,16 +12,16 @@ def transform_batch(objects: list) -> list:
     )
 
     # Prepare tensor
-    input_detail = interpreter.get_input_details()[0]
+    input_detail = model.get_input_details()[0]
     if not np.array_equal(batch.shape, input_detail["shape"]):
-        interpreter.resize_tensor_input(input_detail["index"], batch.shape)
-        interpreter.allocate_tensors()
-        input_detail = interpreter.get_input_details()[0]
+        model.resize_tensor_input(input_detail["index"], batch.shape)
+        model.allocate_tensors()
+        input_detail = model.get_input_details()[0]
 
     # Run model
-    interpreter.set_tensor(input_detail["index"], batch)
-    interpreter.invoke()
+    model.set_tensor(input_detail["index"], batch)
+    model.invoke()
 
-    output_detail = interpreter.get_output_details()[0]
-    features = interpreter.get_tensor(output_detail["index"]).astype(np.float32)
+    output_detail = model.get_output_details()[0]
+    features = model.get_tensor(output_detail["index"]).astype(np.float32)
     return [features[i] for i in range(features.shape[0])]

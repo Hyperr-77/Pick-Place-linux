@@ -1,6 +1,7 @@
 import configparser
 from dataclasses import dataclass
 import cv2
+import os
 from numpy import ndarray
 
 
@@ -44,43 +45,51 @@ class CameraConfig:
 class Camera:
     capture: cv2.VideoCapture | None = None
 
-    def __init__(self, config_path: str, default_config: CameraConfig) -> None:
+    def __init__(self, config_path: str) -> None:
         """Initialize camera configuration and capture state."""
         self.config_path = config_path
-        self.default_config = default_config
 
-        self.saved_config: configparser.ConfigParser | None = None
+        self.config_parser: configparser.ConfigParser | None = None
         self.current_config: CameraConfig | None = None
 
-    def _initialize_camera(self) -> None:
+    def initialize(self, initial_config_path: str) -> None:
         """Initialize the camera using the default configuration."""
-        self._load_config(self.default_config)
-        self._apply_config()
+        self.config_parser = configparser.ConfigParser()
+        self.load_config(initial_config_path)
+        if self.current_config is None:
+            raise RuntimeError("Could not propperly load given camera config while initializing.")
+        self.save_config(self.current_config)
+        self.apply_config()
 
-    def _save_config(self) -> None:
+    def save_config(self, config: CameraConfig) -> None:
         """Save the current camera configuration to the config file."""
-        if self.current_config is None or self.saved_config is None:
+        if config is None or self.config_parser is None:
             raise ValueError(f"Camera must be initialized before saving config.")
-        self.current_config.validate()
-        self.saved_config["camera"] = {key: str(getattr(self.current_config, key)) for key in _CAMERA_KEYS}
 
-        with open(self.config_path, "w") as f:
-            self.saved_config.write(f)
-
-    def _load_config(self, config: CameraConfig) -> None:
-        """Load and validate the supplied camera configuration."""
-        if config is None:
-            raise RuntimeError("Cannot load camera configuration before initialization")
         config.validate()
-        self.current_config = CameraConfig(**{key: getattr(config, key) for key in _CAMERA_KEYS})
+        self.config_parser["camera_config"] = {key: str(getattr(config, key)) for key in _CAMERA_KEYS}
+        
+        with open(self.config_path, "w") as f:
+            self.config_parser.write(f)
 
-    def _reset_config_item(self, key: str) -> None:
-        """Check that the provided key is a camera configuration property."""
-        if key not in _CAMERA_KEYS:
-            raise ValueError(f"Property: {key} is not a camera property")
+    def load_config(self, config_path: str) -> None:
+        """Load and validate the saved camera configuration."""
+        if self.config_parser is None:
+            raise RuntimeError("Cannot load saved camera configuration before initialization.")
 
-    def _apply_config(self) -> None:
-        """Open the configured camera and apply its frame dimensions."""
+        self.config_parser.read(config_path)
+        config = self.config_parser["camera_config"]
+
+        if config == None:
+            raise RuntimeError("Tried to load config but it doesn't exist.")
+        
+        self.current_config = CameraConfig(
+            **{key: int(config[key]) for key in _CAMERA_KEYS}
+        )
+        self.current_config.validate()
+
+    def apply_config(self) -> None:
+        """Apply the current config to the camera."""
         if self.current_config is None:
             raise RuntimeError("Camera must be initialized before applying config")
 
@@ -134,4 +143,4 @@ class Camera:
         """Apply the current configuration when leaving a context manager block."""
         if exception_type is not None:
             print(f"Error detected before saving camera config: {exception_value}. Changes are not saved.")
-        self._apply_config()
+        self.apply_config()

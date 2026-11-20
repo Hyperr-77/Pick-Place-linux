@@ -18,15 +18,15 @@
 
 ## UI class
 
-- [X] Create UI class
-- [X] Replace placeholders with the full-window camera, crop configuration, and database editing views
-- [X] Add a remove_cluster(ui_id) function that unsubscribes its bin and removes the cluster and associated data
+- [ ] Create UI class
+- [ ] Replace placeholders with the full-window camera, crop configuration, and database editing views
+- [ ] Add a remove_cluster(ui_id) function that unsubscribes its bin and removes the cluster and associated data
 
 ## Robot class
 
-- [ ] Implement all functions defined in documentation.md
+- [ ] Implement all functions defined in documentation.md (found in older version of this project)
 - [ ] Implement needed lower-level functions for the other functions to work
-- [X] Add the pixel_to_real_coordinate(coordinate) function from documentation.md
+- [ ] Add the pixel_to_real_coordinate(pixel_x, pixel_y) function from documentation.md
 
 ## classify.py
 
@@ -35,7 +35,7 @@
 
 ## TODO.md
 
-- [X] Update TODO.md to reflect completed database, UI, and classification work
+- [ ] Update TODO.md to reflect completed database, UI, and classification work
 
 
 ## README.md

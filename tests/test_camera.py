@@ -18,7 +18,8 @@ def test_load_config_sets_current_config():
     )
     cam = Camera("/tmp/test_camera.ini", cfg)
 
-    cam._load_config(cfg)
+    cam.initialize()
+    cam.load_config()
 
     assert cam.current_config == cfg
 
