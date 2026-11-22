@@ -9,22 +9,21 @@ authors = [
     {name="Tijn Klein Gunnewiek", email="583577@student.saxion.nl"},
 ]
 description = "Pick & Place vision system for the UR3 robot, it uses MobileNetV2, opencv and sklearn to classify and sort objects before sorting them in the corresponding bin using the UR3."
-requires-python = ">=3.10, <=3.12"
+requires-python = ">=3.10, <3.12"
 
 classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
     "Programming Language :: C++",
     "Operating System :: POSIX",
 ]
 
 dependencies = [
-    "tflite-runtime>=2.14.0",
-    "opencv-python>=4.10,<5",
-    "scikit-learn>=1.9.1",
-    "PySide6>=6.12.0",
     "numpy>=1.26,<2",
+    "tflite-runtime==2.14.0",
+    "opencv-python-headless==4.10.0.84",
+    "scikit-learn==1.7.2",
+    "PySide6>=6.12.0",
 ]
 
 license = "LicenseRef-PolyForm-Noncommercial-1.0.0"

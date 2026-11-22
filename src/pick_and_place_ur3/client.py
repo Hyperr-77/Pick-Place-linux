@@ -6,6 +6,8 @@ import argparse
 import configparser
 from tflite_runtime.interpreter import Interpreter
 
+from PySide6.QtCore import QThread
+
 from .camera import Camera
 from .database import Database
 from .vision.segment import segment
@@ -31,6 +33,8 @@ os.makedirs(os.path.dirname(CAMERA_CONFIG_PATH), exist_ok=True)
 CAMERA_CONFIG = settings_parser["camera_config"]
 VISION_CONFIG = settings_parser["vision_config"]
 
+WORKER_THREAD = QThread()
+
 def start(args) -> None:
     print("Starting client...")
 
@@ -50,7 +54,7 @@ def start(args) -> None:
 
     input_shape = model.get_input_details()[0]["shape"]
     crop_height, crop_width = int(input_shape[1]), int(input_shape[2])
-
+    return
     try:
         print("Waiting for camera calibration...")
         for i in range(50):

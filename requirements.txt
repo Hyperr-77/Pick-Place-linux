@@ -1,5 +1,5 @@
-tflite-runtime >= 2.14.0
-opencv-python >= 4.10, < 5
-scikit-learn >= 1.9.1
-PySide6 >= 6.12.0
 numpy >= 1.26, < 2
+tflite-runtime == 2.14.0
+opencv-python-headless == 4.10.0.84
+scikit-learn == 1.7.2
+PySide6 >= 6.12.0
