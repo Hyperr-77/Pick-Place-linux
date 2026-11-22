@@ -1,0 +1,137 @@
+@startuml classes_pick_and_place
+set namespaceSeparator none
+class "Camera" as src.pick_and_place_ur3.camera.camera.Camera {
+  capture : cv2.VideoCapture | None
+  config_parser : configparser.ConfigParser | None
+  config_path : str
+  current_config : CameraConfig | None
+  apply_config() -> None
+  getFrame() -> ndarray
+  initialize(initial_config_path: str) -> None
+  load_config(config_path: str) -> None
+  save_config(config: CameraConfig) -> None
+}
+class "CameraConfig" as src.pick_and_place_ur3.camera.camera.CameraConfig {
+  cam_height : int
+  cam_index : int
+  cam_width : int
+  crop_height : int
+  crop_width : int
+  crop_x : int
+  crop_y : int
+  validate() -> None
+}
+class "Client" as src.pick_and_place_ur3.ui.client2.Client {
+  bin_manager : NoneType
+  camera_calibration : NoneType
+  cluster_manager : NoneType
+  main_menu
+  robot_arm_calibration : NoneType
+  settings
+  stack
+  show_bin_manager()
+  show_camera_configurator()
+  show_cluster_manager()
+  show_main_menu()
+  show_robotarm_configurator()
+  show_settings()
+  start_sorting()
+}
+class "Client" as src.pick_and_place_ur3.ui.client.Client {
+  bin_manager : NoneType
+  camera_calibration : NoneType
+  cluster_manager : NoneType
+  main_menu
+  robot_arm_calibration : NoneType
+  settings
+  stack
+  show_main_menu()
+  show_settings()
+  start_sorting()
+}
+class "Database" as src.pick_and_place_ur3.database.database.Database {
+  connection : NoneType
+  cursor : NoneType
+  path : str
+  add_bin(center_x, center_y) -> int
+  add_cluster(vector: bytes, eps: float) -> int
+  add_ui(cluster_id: int, prev_image, full_image, background_image) -> int
+  get_bin(cluster_id: int) -> sqlite3.Row
+  get_cluster(cluster_id: int) -> sqlite3.Row
+  get_last_cluster_id() -> int
+  get_ui(ui_id: int) -> sqlite3.Row
+  remove_bin(bin_id: int) -> bool
+  remove_cluster(cluster_id: int) -> bool
+  remove_ui(ui_id: int) -> bool
+  stream_clusters()
+  stream_ui()
+  subscribe_bin(cluster_id: int) -> int
+  unsubscribe_bin(cluster_id: int) -> bool
+  update_cluster(cluster_id: int, eps: float) -> bool
+}
+class "Live_sorting" as src.pick_and_place_ur3.ui.screens.live_sorting.Live_sorting {
+  background_path
+  exit_clicked
+  settings_clicked
+  start_clicked
+}
+class "Main_menu" as src.pick_and_place_ur3.ui.screens.main_menu.Main_menu {
+  background
+  background_path
+  exit_button
+  exit_clicked
+  menu
+  menu_layout
+  settings_button
+  settings_clicked
+  start_button
+  start_clicked
+  title
+  paintEvent(event)
+}
+class "Menu" as src.pick_and_place_ur3.ui.screens.menu.Menu {
+  background : NoneType
+  menu_layout
+  name
+  options : dict[str, QPushButton]
+  painter
+  add_option(name: str, object: object) -> QPushButton
+  paintEvent(event)
+  set_background(path: Path) -> None
+  set_dimensions(width: int, button_height: int, spacing: int) -> None
+  set_name(name: str) -> None
+}
+class "Plate" as src.pick_and_place_ur3.plate.plate.Plate {
+  tilt_x : float
+  tilt_y : float
+  vibrating : bool
+  set_flat() -> None
+  set_vibrate(mode: bool) -> None
+  tilt_plate(tilt_x: float, tilt_y: float) -> None
+}
+class "Robot" as src.pick_and_place_ur3.robot.robot.Robot {
+}
+class "Settings" as src.pick_and_place_ur3.ui.screens.settings.Settings {
+  background
+  background_path
+  bin_manager_button
+  bin_manager_clicked
+  camera_configurator_button
+  camera_configurator_clicked
+  cluster_manager_button
+  cluster_manager_clicked
+  menu
+  menu_layout
+  return_button
+  return_clicked
+  robotarm_configurator_button
+  robotarm_configurator_clicked
+  title
+  paintEvent(event)
+}
+src.pick_and_place_ur3.camera.camera.CameraConfig --* src.pick_and_place_ur3.camera.camera.Camera : current_config
+src.pick_and_place_ur3.ui.screens.main_menu.Main_menu --* src.pick_and_place_ur3.ui.client.Client : main_menu
+src.pick_and_place_ur3.ui.screens.menu.Menu --* src.pick_and_place_ur3.ui.client2.Client : main_menu
+src.pick_and_place_ur3.ui.screens.menu.Menu --* src.pick_and_place_ur3.ui.client2.Client : settings
+src.pick_and_place_ur3.ui.screens.settings.Settings --* src.pick_and_place_ur3.ui.client.Client : settings
+@enduml

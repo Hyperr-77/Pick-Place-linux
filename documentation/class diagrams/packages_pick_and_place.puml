@@ -1,0 +1,72 @@
+@startuml packages_pick_and_place
+set namespaceSeparator none
+package "src.pick_and_place_ur3" as src.pick_and_place_ur3 {
+}
+package "src.pick_and_place_ur3.camera" as src.pick_and_place_ur3.camera {
+}
+package "src.pick_and_place_ur3.camera.camera" as src.pick_and_place_ur3.camera.camera {
+}
+package "src.pick_and_place_ur3.client" as src.pick_and_place_ur3.client {
+}
+package "src.pick_and_place_ur3.database" as src.pick_and_place_ur3.database {
+}
+package "src.pick_and_place_ur3.database.database" as src.pick_and_place_ur3.database.database {
+}
+package "src.pick_and_place_ur3.plate" as src.pick_and_place_ur3.plate {
+}
+package "src.pick_and_place_ur3.plate.plate" as src.pick_and_place_ur3.plate.plate {
+}
+package "src.pick_and_place_ur3.robot" as src.pick_and_place_ur3.robot {
+}
+package "src.pick_and_place_ur3.robot.robot" as src.pick_and_place_ur3.robot.robot {
+}
+package "src.pick_and_place_ur3.ui" as src.pick_and_place_ur3.ui {
+}
+package "src.pick_and_place_ur3.ui.client" as src.pick_and_place_ur3.ui.client {
+}
+package "src.pick_and_place_ur3.ui.client2" as src.pick_and_place_ur3.ui.client2 {
+}
+package "src.pick_and_place_ur3.ui.resources" as src.pick_and_place_ur3.ui.resources {
+}
+package "src.pick_and_place_ur3.ui.screens" as src.pick_and_place_ur3.ui.screens {
+}
+package "src.pick_and_place_ur3.ui.screens.bin_manager" as src.pick_and_place_ur3.ui.screens.bin_manager {
+}
+package "src.pick_and_place_ur3.ui.screens.camera_configurator" as src.pick_and_place_ur3.ui.screens.camera_configurator {
+}
+package "src.pick_and_place_ur3.ui.screens.cluster_manager" as src.pick_and_place_ur3.ui.screens.cluster_manager {
+}
+package "src.pick_and_place_ur3.ui.screens.live_sorting" as src.pick_and_place_ur3.ui.screens.live_sorting {
+}
+package "src.pick_and_place_ur3.ui.screens.main_menu" as src.pick_and_place_ur3.ui.screens.main_menu {
+}
+package "src.pick_and_place_ur3.ui.screens.menu" as src.pick_and_place_ur3.ui.screens.menu {
+}
+package "src.pick_and_place_ur3.ui.screens.robotarm_configurator" as src.pick_and_place_ur3.ui.screens.robotarm_configurator {
+}
+package "src.pick_and_place_ur3.ui.screens.settings" as src.pick_and_place_ur3.ui.screens.settings {
+}
+package "src.pick_and_place_ur3.vision" as src.pick_and_place_ur3.vision {
+}
+package "src.pick_and_place_ur3.vision.classify" as src.pick_and_place_ur3.vision.classify {
+}
+package "src.pick_and_place_ur3.vision.detect" as src.pick_and_place_ur3.vision.detect {
+}
+package "src.pick_and_place_ur3.vision.segment" as src.pick_and_place_ur3.vision.segment {
+}
+package "src.pick_and_place_ur3.vision.transform" as src.pick_and_place_ur3.vision.transform {
+}
+src.pick_and_place_ur3.camera --> src.pick_and_place_ur3.camera
+src.pick_and_place_ur3.client --> src.pick_and_place_ur3.camera
+src.pick_and_place_ur3.client --> src.pick_and_place_ur3.database
+src.pick_and_place_ur3.client --> src.pick_and_place_ur3.vision.classify
+src.pick_and_place_ur3.client --> src.pick_and_place_ur3.vision.detect
+src.pick_and_place_ur3.client --> src.pick_and_place_ur3.vision.segment
+src.pick_and_place_ur3.client --> src.pick_and_place_ur3.vision.transform
+src.pick_and_place_ur3.database --> src.pick_and_place_ur3.database
+src.pick_and_place_ur3.plate --> src.pick_and_place_ur3.plate
+src.pick_and_place_ur3.ui.client --> src.pick_and_place_ur3.ui.screens.main_menu
+src.pick_and_place_ur3.ui.client --> src.pick_and_place_ur3.ui.screens.settings
+src.pick_and_place_ur3.ui.client2 --> src.pick_and_place_ur3.ui.resources
+src.pick_and_place_ur3.ui.client2 --> src.pick_and_place_ur3.ui.screens.menu
+@enduml
