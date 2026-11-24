@@ -1,10 +1,12 @@
 from ..resources import ASSETS_DIR
 
+from .menu_screen import Menu_screen
+
 from PySide6.QtGui import QColor, QPalette, QPainter, QPixmap, QFont
 from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel
 
-class Main_menu(QWidget):
+class Main_menu(Menu_screen):
     start_clicked = Signal(bool)
     settings_clicked = Signal(bool)
     exit_clicked = Signal(bool)

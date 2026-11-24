@@ -9,7 +9,7 @@ from PySide6.QtWidgets import (
     QStackedWidget,
 )
 
-from.screens.menu import Menu
+from.screens.menu_screen import Menu_screen
 
 class Client(QMainWindow):
     def __init__(self):
@@ -22,7 +22,7 @@ class Client(QMainWindow):
         self.cluster_manager = None
         self.bin_manager = None
 
-        self.main_menu = Menu()
+        self.main_menu = Menu_screen()
         self.main_menu.set_name("Pick & Place Client")
         self.main_menu.set_background(ASSETS_DIR / "main_menu_background.jpg")
         self.main_menu.add_option("Start sorting", self.start_sorting)
@@ -30,7 +30,7 @@ class Client(QMainWindow):
         self.main_menu.add_option("Exit", self.close)
         self.main_menu.set_dimensions(360, 56, 16)
 
-        self.settings = Menu()
+        self.settings = Menu_screen()
         self.settings.set_name("Settings")
         self.main_menu.set_background(ASSETS_DIR / "main_menu_background.jpg")
         self.settings.add_option("Camera configuration", self.show_camera_configurator)

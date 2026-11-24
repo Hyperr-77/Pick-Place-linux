@@ -4,7 +4,7 @@ from PySide6.QtGui import QColor, QPalette, QPainter, QPixmap, QFont
 from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel
 
-class Menu(QWidget):
+class Menu_screen(QWidget):
     def __init__(self) -> None:
         super().__init__()
         self.menu_layout = QVBoxLayout(self)
@@ -35,6 +35,9 @@ class Menu(QWidget):
     def add_option(self, name: str, object: object) -> QPushButton:
         button = QPushButton(name)
         button.clicked.connect(object)
+
+        if name in self.options.keys():
+            raise ValueError(f"Menu already has an option named: {name}")
 
         self.options[name] = button
 
